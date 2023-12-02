@@ -7,6 +7,10 @@ import { AuthService } from "@/modules/auth/service";
 import { useRouter } from "next/router";
 import jwtDecode from "jwt-decode";
 
+enum KeyPressed {
+  Enter = "Enter",
+};
+
 export default function Login() {
   const [email, setEmail] = React.useState<string>("");
   const [senha, setSenha] = React.useState<string>("");
@@ -50,7 +54,14 @@ export default function Login() {
           />
           <h1 className={styles.titleService}>Services</h1>
         </div>
-        <div className={styles.containerInputs}>
+        <div className={styles.containerInputs}
+          onKeyDown={(key) => {
+            key.stopPropagation();
+            if (key.code === KeyPressed.Enter){
+              loginFunc();
+            }
+          }}
+        >
           <Input
             label="Email"
             value={email}

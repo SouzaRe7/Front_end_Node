@@ -4,10 +4,9 @@ export default class UserRepo {
 
     if (!token) return;
 
-    console.log(userId);
     const header = new Headers({
         "Content-Type": "application/json",
-        authorzation: token,
+        authorization: token,
     });
 
     const options: RequestInit = {
