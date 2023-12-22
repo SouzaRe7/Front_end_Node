@@ -17,8 +17,8 @@
 }
 
 .modal{
-    width: 250px;
-    height: 170px;
+    width: 580px;
+    height: 600px;
     background: white;
     color: white;
     z-index: 10;
@@ -67,8 +67,17 @@
     transform: translate(-4px, 4px);
 }
 .modalContent{
-    padding: 10px;
+    padding-left: 2rem;
+    padding-right: 2rem;
     font-size: 14px;
     color: #2c3e50;
     text-align: center;
+}
+
+.wrappInputs{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
 }
