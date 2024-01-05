@@ -1,5 +1,5 @@
 .containerSidebar {
-  width: 12%;
+  width: 14rem;
   height: 96vh;
   background-color: #d9d9d9;
   border-radius: 16px;
@@ -10,6 +10,7 @@
   padding: 1rem;
   padding-top: 1.7rem;
   padding-bottom: 1.7rem;
+  margin-right: 1.5rem;
 }
 
 .containerLogoTitle {

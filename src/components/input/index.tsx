@@ -14,6 +14,7 @@ type Props = {
   labelWeight?: number;
   backgroudColor?: string;
   customStyle?: React.CSSProperties | undefined;
+  labelVersion?: number;
 };
 
 export default function Input(props: Props) {
@@ -22,15 +23,27 @@ export default function Input(props: Props) {
     height: props.height,
     ...props.customStyle,
   };
+  const decideLabel = (typeOffLabel: number): string => {
+    switch (typeOffLabel) {
+      case 1:
+        return styles.versionOne;
+      case 2:
+        return styles.versionTwo;
+      default:
+        return "";
+    }
+  };
   return (
     <div className={styles.containerInput} style={{ ...style }}>
       {props.label ? (
         <label
-          style={{
+          style={props.labelVersion ? {} : {
             color: props.labelColor ?? "#081225",
             fontWeight: props.labelWeight ?? "normal",
           }}
-          className={styles.label}
+          className={
+            props.labelVersion ? decideLabel(props.labelVersion) : styles.label
+          }
         >
           {props.label}
         </label>

@@ -24,6 +24,22 @@
   flex-direction: column;
 }
 
+.versionOne{
+  font-weight: bold;
+  font-size: large;
+  margin-bottom: 0.5rem;
+  margin-left: 0.8rem;
+}
+
+.versionTwo{
+  text-align: left;
+  font-size: medium;
+  margin-bottom: 0.3rem;
+  margin-left: 0.9rem;
+  color: #6A7175;
+  font-weight: 100;
+}
+
 @media (max-width: 780px) {
   .input {
     width: 250px;
