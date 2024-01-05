@@ -14,6 +14,7 @@ type TokenDecode = {
 };
 
 interface UserType {
+  _id: string;
   nome: string;
   email: string;
   dataNascimento: Date;
@@ -44,4 +45,15 @@ interface FuncionarioType {
   ativo?: boolean;
   salario: number;
   admin?: boolean;
+}
+
+interface ClienteType {
+  nome: string;
+  dataNascimento: Date;
+  rua: string;
+  obs?: string;
+  bairro: string;
+  cep: string;
+  foto?: string;
+  ativo?: Boolean;
 }

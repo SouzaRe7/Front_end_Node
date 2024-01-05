@@ -1,4 +1,4 @@
-export default class UserRepo {
+export default class ClienteRepo {
   async findUserById(userId: string): Promise<UserType | undefined> {
     const token = sessionStorage.getItem("token");
 
@@ -27,7 +27,7 @@ export default class UserRepo {
     }
   }
 
-  async findAllFunc(): Promise<UserType[] | undefined> {
+  async findAllCliente(): Promise<UserType[] | undefined> {
     const token = sessionStorage.getItem("token");
 
     if (!token) return;
@@ -43,7 +43,7 @@ export default class UserRepo {
       mode: "cors",
     };
 
-    const response = await fetch("http://localhost:3003/funcionario", options);
+    const response = await fetch("http://localhost:3003/cliente", options);
 
     if (response.ok){
         return (await response.json()) as UserType[];
