@@ -1,0 +1,45 @@
+.wrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.wrapper > div {
+  margin-right: 1rem;
+}
+
+.paragraph {
+  padding: 0px;
+  margin: 0px;
+}
+
+.card {
+  width: 250px;
+  height: 200px;
+  padding: 1rem;
+  border: 1px solid black;
+  display: flex;
+  border-radius: 8px;
+  background-color: #b5c2ca;
+  font-size: 15px;
+  justify-content: space-between;
+  cursor: pointer;
+  flex-direction: column;
+  margin-bottom: 1rem;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.8); /* Adicione esta linha para a sombra */
+  transition: box-shadow 0.3s ease; /* Adicione uma transição para suavizar a alteração da sombra */
+}
+
+.card > div {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card:hover {
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 100); /* Altera a sombra no hover para um efeito mais pronunciado */
+}

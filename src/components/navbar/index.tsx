@@ -9,7 +9,6 @@ import { useDispatch } from "react-redux";
 
 export default function Navbar() {
   const [search, setSearch] = React.useState<string>("");
-
   const currentLayoutState: any = useSelector(getLayoutDisposition);
   const dispatch = useDispatch();
 

@@ -1,0 +1,33 @@
+.tableContainer {
+  border-collapse: collapse;
+  width: 100%;
+  max-height: 600px;
+  overflow: auto;
+  margin-top: 1rem;
+}
+
+.tableContainer > th {
+  background-color: #6ca6c1;
+  padding: 1rem;
+  /*border: 1px solid black;*/
+}
+
+.tableContainer > tr > td {
+  text-align: center;
+  padding: 1rem;
+  /*border: 1px solid black;*/
+}
+
+.tableContainer > tr:nth-child(odd) {
+  background-color: #89bed6;
+}
+
+.tableContainer > tr {
+  cursor: pointer;
+}
+
+/* .tableContainer > tr:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 10);
+  transform: translateY(-2px);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+} */
