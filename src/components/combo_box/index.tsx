@@ -6,13 +6,20 @@ type Props = {
   data: genericCombo[];
   label: string;
   stateToGetId: React.Dispatch<React.SetStateAction<string>>;
+  currentValue?: string;
 };
 
 export default function ComboBox(props: Props) {
+  const [chooseData, setChooseData] = React.useState<string>("");
   return (
     <div className={styles.container}>
       <label>{props.label}</label>
-      <select onChange={(e) => props.stateToGetId(e.target.value)}>
+      <select
+        value={props.data.find((iten) => iten.id === props.currentValue)?.nome}
+        onChange={(e) => {
+          props.stateToGetId(e.target.value);
+        }}
+      >
         <option selected disabled hidden>
           Selecione
         </option>

@@ -48,6 +48,7 @@ interface FuncionarioType {
 }
 
 interface ClienteType {
+  _id: string;
   nome: string;
   dataNascimento: Date;
   rua: string;
@@ -56,4 +57,27 @@ interface ClienteType {
   cep: string;
   foto?: string;
   ativo?: Boolean;
+}
+
+interface ServicoType {
+  nome: string;
+  descricao?: string;
+  valor: number;
+  tempoServico?: number;
+  ativo?: boolean;
+  funcionario: string;
+  cliente: string;
+  status: number; // 0-> aguardando 1->em andamento 2->cancelado 3->finalizado
+}
+
+interface ServicoTypeReturned {
+  _id: string;
+  nome: string;
+  descricao?: string;
+  valor: number;
+  tempoServico?: number;
+  ativo?: boolean;
+  funcionario: UserType;
+  cliente: ClienteType;
+  status: number; // 0-> aguardando 1->em andamento 2->cancelado 3->finalizado
 }
