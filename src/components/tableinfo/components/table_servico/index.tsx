@@ -4,12 +4,13 @@ import Modal from "@/components/modal";
 
 type Props = {
   data: ServicoTypeReturned[];
+  atualizar: () => void;
 };
 
 export default function TableServico(props: Props) {
   const [showModal, setShowModal] = React.useState<boolean>(false);
-
   const [selectedItem, setSelectedItem] = React.useState<ServicoTypeReturned>();
+  
   const retStatus = (val: number): string => {
     switch (val) {
       case 0:
@@ -32,39 +33,48 @@ export default function TableServico(props: Props) {
   return (
     <>
       {showModal && (
-        <Modal setIsOpen={showModalFunc} data={selectedItem} isEditing={true} />
+        <Modal
+          setIsOpen={showModalFunc}
+          data={selectedItem}
+          isEditing={true}
+          atualizar={props.atualizar}
+        />
       )}
-      <div>
+      <div style={{ height: "200px" }}>
         <table className={styles.tableContainer}>
-          <th>Nome</th>
-          <th>Funcionario</th>
-          <th>Cliente</th>
-          <th>Valor</th>
-          <th>Status</th>
-          <th>Descrição</th>
-          {props.data.map((itemIterator, index) => {
-            return (
-              <tr
-                key={index}
-                onClick={() => {
-                  setSelectedItem(itemIterator);
-                  setShowModal(true);
-                }}
-              >
-                <td>{itemIterator.nome}</td>
-                <td>{itemIterator.funcionario?.nome}</td>
-                <td>{itemIterator.cliente?.nome}</td>
-                <td>
-                  {itemIterator.valor.toLocaleString("pt-BR", {
-                    style: "currency",
-                    currency: "BRL",
-                  })}
-                </td>
-                <td>{retStatus(itemIterator.status)}</td>
-                <td>{itemIterator.descricao ?? "..."}</td>
-              </tr>
-            );
-          })}
+          <thead>
+            <th>Nome</th>
+            <th>Funcionario</th>
+            <th>Cliente</th>
+            <th>Valor</th>
+            <th>Status</th>
+            <th>Descrição</th>
+          </thead>
+          <tbody>
+            {props.data.map((itemIterator, index) => {
+              return (
+                <tr
+                  key={index}
+                  onClick={() => {
+                    setSelectedItem(itemIterator);
+                    setShowModal(true);
+                  }}
+                >
+                  <td>{itemIterator.nome}</td>
+                  <td>{itemIterator.funcionario?.nome}</td>
+                  <td>{itemIterator.cliente?.nome}</td>
+                  <td>
+                    {itemIterator.valor.toLocaleString("pt-BR", {
+                      style: "currency",
+                      currency: "BRL",
+                    })}
+                  </td>
+                  <td>{retStatus(itemIterator.status)}</td>
+                  <td>{itemIterator.descricao ?? "..."}</td>
+                </tr>
+              );
+            })}
+          </tbody>
         </table>
       </div>
     </>

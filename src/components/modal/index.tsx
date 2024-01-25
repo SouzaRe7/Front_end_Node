@@ -12,6 +12,7 @@ type Props = {
   setIsOpen: (param: boolean) => void;
   isEditing?: boolean;
   data?: ServicoTypeReturned;
+  atualizar?: () => void;
 };
 
 export interface genericCombo {
@@ -111,6 +112,7 @@ export default function Modal(props: Props) {
     } else {
       alert("Serviço não inserido, Ocorreu algum erro!");
     }
+    atualizarStateFather();
   };
 
   const clear = async () => {
@@ -123,11 +125,49 @@ export default function Modal(props: Props) {
     setStatusId("");
   };
 
-  const submitUpdate = () => {};
+  const submitUpdate = async () => {
+    const dataUpdate: ServicoType = {
+      ativo: true,
+      cliente: idClienteToSend,
+      funcionario: idFuncionarioToSend,
+      nome: name,
+      status: Number(statusId),
+      valor: Number(valor),
+      descricao: descricao,
+      tempoServico: Number(tempoServico),
+    };
+
+    if (props.data && props.data._id) {
+      if (dataUpdate.nome != "" || dataUpdate.nome != null) {
+        const dataSaved = await servicoService.updateServico(
+          props.data._id,
+          dataUpdate
+        );
+        if (dataSaved) {
+          alert("Serviço alterado com sucesso!");
+        } else {
+          alert("Serviço não alterado, Ocorreu algum erro!");
+        }
+        atualizarStateFather();
+      }
+    }
+  };
+
+  const atualizarStateFather = () => {
+    if (props.atualizar){
+      props.atualizar();
+    }
+  };
 
   return (
     <>
-      <div className={styles.darkBG} onClick={() => props.setIsOpen(false)} />
+      <div
+        className={styles.darkBG}
+        onClick={() => {
+          atualizarStateFather();
+          props.setIsOpen(false);
+        }}
+      />
       <div className={styles.centered}>
         <div className={styles.modal}>
           <div className={styles.modalHeader}>
@@ -135,7 +175,10 @@ export default function Modal(props: Props) {
           </div>
           <button
             className={styles.closerBtn}
-            onClick={() => props.setIsOpen(false)}
+            onClick={() => {
+              atualizarStateFather();
+              props.setIsOpen(false);
+            }}
           >
             <IoMdClose style={{ marginBottom: "-3px" }} />
           </button>
@@ -185,16 +228,33 @@ export default function Modal(props: Props) {
                 data={funcionarios}
                 label="Funcionário"
                 stateToGetId={setIdFuncionarioToSend}
+                currentValue={
+                  props.isEditing &&
+                  props.data &&
+                  props.data.funcionario != null
+                    ? props.data.funcionario._id
+                    : ""
+                }
               />
               <ComboBox
                 data={clientes}
                 label="Cliente"
                 stateToGetId={setIdClienteToSend}
+                currentValue={
+                  props.isEditing && props.data && props.data.cliente != null
+                    ? props.data.cliente._id
+                    : ""
+                }
               />
               <ComboBox
                 data={mockedDataStatus}
                 label="Status"
                 stateToGetId={setStatusId}
+                currentValue={
+                  props.isEditing && props.data && props.data.status != null
+                    ? props.data.status.toString()
+                    : ""
+                }
               />
             </div>
             <div className={styles.modalFooter}>

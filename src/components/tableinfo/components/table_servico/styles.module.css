@@ -1,28 +1,26 @@
 .tableContainer {
   border-collapse: collapse;
   width: 100%;
-  max-height: 600px;
-  overflow: auto;
-  margin-top: 1rem;
+  height: 200px;
 }
 
-.tableContainer > th {
+.tableContainer > thead > th {
   background-color: #6ca6c1;
   padding: 1rem;
   /*border: 1px solid black;*/
 }
 
-.tableContainer > tr > td {
+.tableContainer > tbody > tr > td {
   text-align: center;
   padding: 1rem;
   /*border: 1px solid black;*/
 }
 
-.tableContainer > tr:nth-child(odd) {
+.tableContainer > tbody > tr:nth-child(odd) {
   background-color: #89bed6;
 }
 
-.tableContainer > tr {
+.tableContainer > tbody > tr {
   cursor: pointer;
 }
 

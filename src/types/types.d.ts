@@ -71,6 +71,7 @@ interface ServicoType {
 }
 
 interface ServicoTypeReturned {
+  _id: string;
   nome: string;
   descricao?: string;
   valor: number;

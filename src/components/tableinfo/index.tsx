@@ -26,12 +26,16 @@ export default function TableInfo(props: Props) {
 
   const [clienteData, setClienteData] = React.useState<ClienteType[]>([]);
   const [funcionarioData, setFuncionarioData] = React.useState<UserType[]>([]);
-  const [servicoData, setServicoData] = React.useState<ServicoTypeReturned[]>([]);
+  const [servicoData, setServicoData] = React.useState<ServicoTypeReturned[]>(
+    []
+  );
+  const [atualizar, setAtualizar] = React.useState<boolean>(false);
 
   const getService = async () => {
     const servico = await servicoService.getAllService();
 
     if (servico && servico.length > 0) {
+      servico.reverse();
       setServicoData(servico);
     }
   };
@@ -64,7 +68,11 @@ export default function TableInfo(props: Props) {
         getUser();
         break;
     }
-  }, []);
+  }, [atualizar]);
+
+  const atualizandoRender = () => {
+    setAtualizar(!atualizar);
+  };
 
   switch (props.type) {
     case typeTable.servico:
@@ -73,7 +81,13 @@ export default function TableInfo(props: Props) {
       };
       return (
         <>
-          {openModal ? <Modal setIsOpen={handleAddServico} /> : <></>}
+          {openModal ? (
+            <Modal
+              setIsOpen={handleAddServico} atualizar={atualizandoRender}
+            />
+          ) : (
+            <></>
+          )}
           <div className={styles.wrapper}>
             <div className={styles.header}>
               <div>
@@ -92,7 +106,11 @@ export default function TableInfo(props: Props) {
                 Cadastrar Serviço
               </Button>
             </div>
-            {currentLayoutState ? ( <TableServico data={servicoData} /> ) : (<CardServico data={servicoData} />)}
+            {currentLayoutState ? (
+              <TableServico data={servicoData} atualizar={atualizandoRender}/>
+            ) : (
+              <CardServico data={servicoData} atualizar={atualizandoRender}/>
+            )}
           </div>
         </>
       );
