@@ -1,14 +1,18 @@
 import * as React from "react";
 import styles from "./styles.module.css";
 import Button from "../button";
-import TableServico from "./components/table_servico";
-import Modal from "../modal";
+import TableServico from "./components/servico/table_servico";
+import ModalServico from "../modals/modal_servico";
 import { useSelector } from "react-redux";
 import { getLayoutDisposition } from "@/redux/dataSlice";
 import { servicoService } from "@/modules/service_module/service";
 import { clienteService } from "@/modules/cliente/service";
 import { userService } from "@/modules/user/service";
-import CardServico from "./components/card_servico";
+import CardServico from "./components/servico/card_servico";
+import CardFuncionario from "./components/funcionario/card_funcionario";
+import TableFuncionario from "./components/funcionario/table_funcionario";
+import TableCliente from "./components/cliente/table_cliente";
+import CardCliente from "./components/cliente/card_cliente";
 
 export enum typeTable {
   servico = "servico",
@@ -52,6 +56,7 @@ export default function TableInfo(props: Props) {
     const user = await userService.findAll();
 
     if (user && user.length > 0) {
+      user.reverse();
       setFuncionarioData(user);
     }
   };
@@ -82,8 +87,9 @@ export default function TableInfo(props: Props) {
       return (
         <>
           {openModal ? (
-            <Modal
-              setIsOpen={handleAddServico} atualizar={atualizandoRender}
+            <ModalServico
+              setIsOpen={handleAddServico}
+              atualizar={atualizandoRender}
             />
           ) : (
             <></>
@@ -92,7 +98,7 @@ export default function TableInfo(props: Props) {
             <div className={styles.header}>
               <div>
                 <p className={styles.title}>Serviços cadastrados</p>
-                <p>117 cadastrados</p>
+                <p>{servicoData.length} cadastrados</p>
               </div>
               <Button
                 onClick={() => handleAddServico(true)}
@@ -107,16 +113,104 @@ export default function TableInfo(props: Props) {
               </Button>
             </div>
             {currentLayoutState ? (
-              <TableServico data={servicoData} atualizar={atualizandoRender}/>
+              <TableServico data={servicoData} atualizar={atualizandoRender} />
             ) : (
-              <CardServico data={servicoData} atualizar={atualizandoRender}/>
+              <CardServico data={servicoData} atualizar={atualizandoRender} />
             )}
           </div>
         </>
       );
     case typeTable.cliente:
-      return <div></div>;
+      const handleAddCliente = (value: boolean) => {
+        setOpenModal(value);
+      };
+      return (
+        <>
+          {openModal ? (
+            <ModalServico
+              setIsOpen={handleAddCliente}
+              atualizar={atualizandoRender}
+            />
+          ) : (
+            <></>
+          )}
+          <div className={styles.wrapper}>
+            <div className={styles.header}>
+              <div>
+                <p className={styles.title}>Clientes cadastrados</p>
+                <p>{clienteData.length} cadastrados</p>
+              </div>
+              <Button
+                onClick={() => handleAddServico(true)}
+                backgroundColor={"#081225"}
+                padding={[8, 50, 8, 50]}
+                borderRadius
+                color="#B5C2CA"
+                fontSize={19}
+                fontWeight={500}
+              >
+                Cadastrar Cliente
+              </Button>
+            </div>
+            {currentLayoutState ? (
+              <TableCliente
+                data={clienteData}
+                atualizar={atualizandoRender}
+              />
+            ) : (
+              <CardCliente
+                data={clienteData}
+                atualizar={atualizandoRender}
+              />
+            )}
+          </div>
+        </>
+      );
     case typeTable.funcionario:
-      return <div></div>;
+      const handleAddFuncionario = (value: boolean) => {
+        setOpenModal(value);
+      };
+      return (
+        <>
+          {openModal ? (
+            <ModalServico
+              setIsOpen={handleAddFuncionario}
+              atualizar={atualizandoRender}
+            />
+          ) : (
+            <></>
+          )}
+          <div className={styles.wrapper}>
+            <div className={styles.header}>
+              <div>
+                <p className={styles.title}>Funcionários cadastrados</p>
+                <p>{funcionarioData.length} cadastrados</p>
+              </div>
+              <Button
+                onClick={() => handleAddServico(true)}
+                backgroundColor={"#081225"}
+                padding={[8, 50, 8, 50]}
+                borderRadius
+                color="#B5C2CA"
+                fontSize={19}
+                fontWeight={500}
+              >
+                Cadastrar Funcionário
+              </Button>
+            </div>
+            {currentLayoutState ? (
+              <TableFuncionario
+                data={funcionarioData}
+                atualizar={atualizandoRender}
+              />
+            ) : (
+              <CardFuncionario
+                data={funcionarioData}
+                atualizar={atualizandoRender}
+              />
+            )}
+          </div>
+        </>
+      );
   }
 }
