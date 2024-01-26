@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./styles.module.css";
-import Modal from "@/components/modal";
+import ModalServico from "@/components/modals/modal_servico";
 
 type Props = {
   data: ServicoTypeReturned[];
@@ -34,7 +34,7 @@ function CardServico({ data, atualizar }: Props) {
   return (
     <>
       {showModal && (
-        <Modal
+        <ModalServico
           setIsOpen={showModalFunc}
           data={selectedItem}
           isEditing={true}

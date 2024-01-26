@@ -1,30 +1,16 @@
 import * as React from "react";
 import styles from "./styles.module.css";
-import Modal from "@/components/modal";
+import { format } from "date-fns";
+import ModalCliente from "@/components/modals/modal_cliente";
 
 type Props = {
-  data: ServicoTypeReturned[];
+  data: ClienteType[];
   atualizar: () => void;
 };
 
-export default function TableServico(props: Props) {
+export default function TableCliente(props: Props) {
   const [showModal, setShowModal] = React.useState<boolean>(false);
-  const [selectedItem, setSelectedItem] = React.useState<ServicoTypeReturned>();
-  
-  const retStatus = (val: number): string => {
-    switch (val) {
-      case 0:
-        return "Agendado";
-      case 1:
-        return "Em atendimento";
-      case 2:
-        return "Finalizado";
-      case 3:
-        return "Cancelado";
-      default:
-        return "";
-    }
-  };
+  const [selectedItem, setSelectedItem] = React.useState<ClienteType>();
 
   const showModalFunc = (val: boolean) => {
     setShowModal(val);
@@ -33,7 +19,7 @@ export default function TableServico(props: Props) {
   return (
     <>
       {showModal && (
-        <Modal
+        <ModalCliente
           setIsOpen={showModalFunc}
           data={selectedItem}
           isEditing={true}
@@ -44,14 +30,15 @@ export default function TableServico(props: Props) {
         <table className={styles.tableContainer}>
           <thead>
             <th>Nome</th>
-            <th>Funcionario</th>
-            <th>Cliente</th>
-            <th>Valor</th>
-            <th>Status</th>
-            <th>Descrição</th>
+            <th>Data nascimento</th>
+            <th>CEP</th>
+            <th>Rua</th>
+            <th>Bairro</th>
+            <th>Observação</th>
           </thead>
           <tbody>
             {props.data.map((itemIterator, index) => {
+                const dataNascimentoFormatada = format(new Date(itemIterator.dataNascimento), 'dd/MM/yyyy');
               return (
                 <tr
                   key={index}
@@ -61,16 +48,13 @@ export default function TableServico(props: Props) {
                   }}
                 >
                   <td>{itemIterator.nome}</td>
-                  <td>{itemIterator.funcionario?.nome}</td>
-                  <td>{itemIterator.cliente?.nome}</td>
+                  <td>{dataNascimentoFormatada}</td>
                   <td>
-                    {itemIterator.valor.toLocaleString("pt-BR", {
-                      style: "currency",
-                      currency: "BRL",
-                    })}
+                    {itemIterator.cep}
                   </td>
-                  <td>{retStatus(itemIterator.status)}</td>
-                  <td>{itemIterator.descricao ?? "..."}</td>
+                  <td>{itemIterator.rua}</td>
+                  <td>{itemIterator.bairro}</td>
+                  <td>{itemIterator.obs ?? "..."}</td>
                 </tr>
               );
             })}
