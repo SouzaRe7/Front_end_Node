@@ -1,6 +1,7 @@
 import * as React from "react";
 import styles from "./styles.module.css";
 import { format } from "date-fns";
+import ModalFuncionario from "@/components/modals/modal_funcionario";
 
 type Props = {
   data: UserType[];
@@ -17,14 +18,14 @@ export default function TableFuncionario(props: Props) {
 
   return (
     <>
-      {/* {showModal && (
+      {showModal && (
         <ModalFuncionario
           setIsOpen={showModalFunc}
           data={selectedItem}
           isEditing={true}
           atualizar={props.atualizar}
         />
-      )} */}
+      )}
       <div style={{ height: "200px" }}>
         <table className={styles.tableContainer}>
           <thead>

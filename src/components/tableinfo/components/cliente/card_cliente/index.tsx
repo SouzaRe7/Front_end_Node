@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styles from "./styles.module.css";
 import { format } from "date-fns";
+import ModalCliente from "@/components/modals/modal_cliente";
 
 type Props = {
   data: ClienteType[];
@@ -18,14 +19,14 @@ function CardCliente({ data, atualizar }: Props) {
 
   return (
     <>
-      {/* {showModal && (
+      {showModal && (
         <ModalCliente
           setIsOpen={showModalFunc}
           data={selectedItem}
           isEditing={true}
           atualizar={atualizar}
         />
-      )} */}
+      )}
       <div className={styles.wrapper}>
         {data.map((itemIterator, index) => {
           const dataNascimentoFormatada = format(

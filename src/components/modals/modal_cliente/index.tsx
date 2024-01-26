@@ -11,7 +11,7 @@ import { servicoService } from "@/modules/service_module/service";
 type Props = {
   setIsOpen: (param: boolean) => void;
   isEditing?: boolean;
-  data?: ServicoTypeReturned;
+  data?: ClienteType;
   atualizar?: () => void;
 };
 
@@ -20,7 +20,7 @@ export interface genericCombo {
   nome: string;
 }
 
-export default function ModalServico(props: Props) {
+export default function ModalCliente(props: Props) {
   const [name, setName] = React.useState<string>("");
   const [valor, setValor] = React.useState<string>("");
   const [descricao, setDescricao] = React.useState<string>("");
@@ -32,10 +32,8 @@ export default function ModalServico(props: Props) {
   const [idClienteToSend, setIdClienteToSend] = React.useState<string>("");
   const [statusId, setStatusId] = React.useState<string>("");
   const mockedDataStatus: genericCombo[] = [
-    { id: "0", nome: "Agendado" },
-    { id: "1", nome: "Em atendimento" },
-    { id: "2", nome: "Finalizado" },
-    { id: "3", nome: "Cancelado" },
+    { id: "0", nome: "Inativo" },
+    { id: "1", nome: "Ativo" },
   ];
 
   const onChangeName = (val: string) => {
@@ -80,13 +78,13 @@ export default function ModalServico(props: Props) {
     if (props.isEditing && props.data) {
       getFuncionario();
       getCliente();
-      setName(props.data.nome);
-      setValor(props.data.valor.toString());
-      setDescricao(props.data.descricao ?? "...");
-      setTempoServico(props.data.tempoServico?.toString()!);
-      setIdFuncionarioToSend(props.data.funcionario._id);
-      setIdClienteToSend(props.data.cliente._id);
-      setStatusId(props.data.status.toString());
+      //   setName(props.data.nome);
+      //   setValor(props.data.valor.toString());
+      //   setDescricao(props.data.descricao ?? "...");
+      //   setTempoServico(props.data.tempoServico?.toString()!);
+      //   setIdFuncionarioToSend(props.data.funcionario._id);
+      //   setIdClienteToSend(props.data.cliente._id);
+      //   setStatusId(props.data.status.toString());
     } else {
       getFuncionario();
       getCliente();
@@ -154,7 +152,7 @@ export default function ModalServico(props: Props) {
   };
 
   const atualizarStateFather = () => {
-    if (props.atualizar){
+    if (props.atualizar) {
       props.atualizar();
     }
   };
@@ -171,7 +169,9 @@ export default function ModalServico(props: Props) {
       <div className={styles.centered}>
         <div className={styles.modal}>
           <div className={styles.modalHeader}>
-            <h5 className={styles.heading}>{props.isEditing ? "Alterar" : "Cadastrar"} Serviço</h5>
+            <h5 className={styles.heading}>
+              {props.isEditing ? "Alterar" : "Cadastrar"} Cliente
+            </h5>
           </div>
           <button
             className={styles.closerBtn}
@@ -195,67 +195,75 @@ export default function ModalServico(props: Props) {
                 customStyle={{ marginBottom: "0.7rem" }}
               />
               <Input
-                label="Valor"
+                label="Data nascimento"
                 labelVersion={2}
                 value={valor}
                 onChange={onChangeValor}
-                alt={"Input do valor"}
+                alt={"Input data nascimento"}
                 width={230}
-                placeholder={"Digite aqui..."}
                 customStyle={{ marginBottom: "0.7rem" }}
+                type={"date"}
               />
               <Input
-                label="Tempo de serviço"
-                labelVersion={2}
-                value={tempoServico}
-                onChange={onChangeTempoServico}
-                alt={"Input tempo de serviço"}
-                width={230}
-                placeholder={"Digite aqui..."}
-                customStyle={{ marginBottom: "0.7rem" }}
-              />
-              <ComboBox
-                data={funcionarios}
-                label="Funcionário"
-                stateToGetId={setIdFuncionarioToSend}
-                currentValue={
-                  props.isEditing &&
-                  props.data &&
-                  props.data.funcionario != null
-                    ? props.data.funcionario._id
-                    : ""
-                }
-              />
-              <ComboBox
-                data={clientes}
-                label="Cliente"
-                stateToGetId={setIdClienteToSend}
-                currentValue={
-                  props.isEditing && props.data && props.data.cliente != null
-                    ? props.data.cliente._id
-                    : ""
-                }
-              />
-              <ComboBox
-                data={mockedDataStatus}
-                label="Status"
-                stateToGetId={setStatusId}
-                currentValue={
-                  props.isEditing && props.data && props.data.status != null
-                    ? props.data.status.toString()
-                    : ""
-                }
-              />
-              <Input
-                label="Descrição"
+                label="CEP"
                 labelVersion={2}
                 value={descricao}
                 onChange={onChangeDescricao}
-                alt={"Input da descrição"}
-                width={530}
+                alt={"Input do cep"}
+                width={230}
                 placeholder={"Digite aqui..."}
                 customStyle={{ marginBottom: "0.7rem" }}
               />
+              <Input
+                label="Rua"
+                labelVersion={2}
+                value={tempoServico}
+                onChange={onChangeTempoServico}
+                alt={"Input da rua"}
+                width={230}
+                placeholder={"Digite aqui..."}
+                customStyle={{ marginBottom: "0.7rem" }}
+              />
+              <Input
+                label="Bairro"
+                labelVersion={2}
+                value={tempoServico}
+                onChange={onChangeTempoServico}
+                alt={"Input do bairro"}
+                width={230}
+                placeholder={"Digite aqui..."}
+                customStyle={{ marginBottom: "0.7rem" }}
+              />
+              <Input
+                label="Foto"
+                labelVersion={2}
+                value={tempoServico}
+                onChange={onChangeTempoServico}
+                alt={"Input da foto"}
+                width={230}
+                placeholder={"Digite aqui..."}
+                customStyle={{ marginBottom: "0.7rem" }}
+                type={"file"}
+              />
+              <Input
+                label="Observação"
+                labelVersion={2}
+                value={tempoServico}
+                onChange={onChangeTempoServico}
+                alt={"Input da observação"}
+                width={props.isEditing ? 230 : 530}
+                placeholder={"Digite aqui..."}
+                customStyle={{ marginBottom: "0.7rem" }}
+              />
+              {props.isEditing ? (
+                <ComboBox
+                  data={mockedDataStatus}
+                  label="Status"
+                  stateToGetId={setStatusId}
+                />
+              ) : (
+                ""
+              )}
             </div>
             <div className={styles.modalFooter}>
               <Button

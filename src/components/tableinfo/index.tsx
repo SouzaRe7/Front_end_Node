@@ -13,6 +13,8 @@ import CardFuncionario from "./components/funcionario/card_funcionario";
 import TableFuncionario from "./components/funcionario/table_funcionario";
 import TableCliente from "./components/cliente/table_cliente";
 import CardCliente from "./components/cliente/card_cliente";
+import ModalCliente from "../modals/modal_cliente";
+import ModalFuncionario from "../modals/modal_funcionario";
 
 export enum typeTable {
   servico = "servico",
@@ -127,7 +129,7 @@ export default function TableInfo(props: Props) {
       return (
         <>
           {openModal ? (
-            <ModalServico
+            <ModalCliente
               setIsOpen={handleAddCliente}
               atualizar={atualizandoRender}
             />
@@ -141,7 +143,7 @@ export default function TableInfo(props: Props) {
                 <p>{clienteData.length} cadastrados</p>
               </div>
               <Button
-                onClick={() => handleAddServico(true)}
+                onClick={() => handleAddCliente(true)}
                 backgroundColor={"#081225"}
                 padding={[8, 50, 8, 50]}
                 borderRadius
@@ -173,7 +175,7 @@ export default function TableInfo(props: Props) {
       return (
         <>
           {openModal ? (
-            <ModalServico
+            <ModalFuncionario
               setIsOpen={handleAddFuncionario}
               atualizar={atualizandoRender}
             />
@@ -187,7 +189,7 @@ export default function TableInfo(props: Props) {
                 <p>{funcionarioData.length} cadastrados</p>
               </div>
               <Button
-                onClick={() => handleAddServico(true)}
+                onClick={() => handleAddFuncionario(true)}
                 backgroundColor={"#081225"}
                 padding={[8, 50, 8, 50]}
                 borderRadius

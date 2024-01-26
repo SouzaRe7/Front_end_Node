@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styles from "./styles.module.css";
 import { format } from "date-fns";
+import ModalFuncionario from "@/components/modals/modal_funcionario";
 
 type Props = {
   data: UserType[];
@@ -18,14 +19,14 @@ function CardFuncionario({ data, atualizar }: Props) {
 
   return (
     <>
-      {/* {showModal && (
+      {showModal && (
         <ModalFuncionario
           setIsOpen={showModalFunc}
           data={selectedItem}
           isEditing={true}
           atualizar={atualizar}
         />
-      )} */}
+      )}
       <div className={styles.wrapper}>
         {data.map((itemIterator, index) => {
           const dataNascimentoFormatada = format(

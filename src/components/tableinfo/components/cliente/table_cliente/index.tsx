@@ -1,6 +1,7 @@
 import * as React from "react";
 import styles from "./styles.module.css";
 import { format } from "date-fns";
+import ModalCliente from "@/components/modals/modal_cliente";
 
 type Props = {
   data: ClienteType[];
@@ -17,14 +18,14 @@ export default function TableCliente(props: Props) {
 
   return (
     <>
-      {/* {showModal && (
+      {showModal && (
         <ModalCliente
           setIsOpen={showModalFunc}
           data={selectedItem}
           isEditing={true}
           atualizar={props.atualizar}
         />
-      )} */}
+      )}
       <div style={{ height: "200px" }}>
         <table className={styles.tableContainer}>
           <thead>
